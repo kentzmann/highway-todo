@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx --version)",
+      "Bash(ng version *)",
+      "Bash(npx --yes @angular/cli@latest new highway-todo --directory=. --routing=false --style=scss --skip-git --package-manager=npm --ssr=false --defaults)",
+      "Bash(npx --yes @angular/cli@19 new highway-todo --directory=. --routing=false --style=scss --skip-git --package-manager=npm --ssr=false --defaults)",
+      "Bash(npm install *)",
+      "Bash(npx ng *)",
+      "Bash(echo \"PID=$!\")",
+      "Bash(lsof -ti:4200)",
+      "Bash(xargs -r kill)",
+      "Bash(rm -f /tmp/ng-serve.log)",
+      "Bash(curl -s http://localhost:4200/)",
+      "Bash(curl -s -o /dev/null -w \"stale asphalt: %{http_code}\\\\n\" http://localhost:4200/assets/asphalt.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/kent/workspace/interviews/todo-list-app/static/assets/asphalt.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/kent/workspace/interviews/todo-list-app/static/assets/truss-beam.png)",
+      "Bash(git -C /Users/kent/workspace/interviews/todo-list-app remote set-url origin git@github.com:kentzmann/highway-todo.git)",
+      "Bash(git -C /Users/kent/workspace/interviews/todo-list-app remote -v)"
+    ]
+  }
+}

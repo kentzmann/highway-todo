@@ -1,0 +1,34 @@
+<section
+  class="lane"
+  [class.create-lane]="isCreateLane"
+  [attr.data-status]="status"
+  (click)="onLaneClick($event)"
+>
+  <div class="asphalt">
+    <div
+      class="drop-zone"
+      cdkDropList
+      [id]="dropListId"
+      [cdkDropListData]="tasks"
+      [cdkDropListConnectedTo]="connectedLaneIds"
+      (cdkDropListDropped)="onDrop($event)"
+    >
+      @for (task of tasks; track task.id) {
+        <div
+          class="truck-slot"
+          cdkDrag
+          [cdkDragData]="task"
+          (cdkDragStarted)="onDragStarted()"
+          (cdkDragMoved)="onDragMoved($event)"
+          (cdkDragEnded)="onDragEnded()"
+        >
+          <app-truck [task]="task" (opened)="onTaskOpened($event)"></app-truck>
+          <div class="drag-preview" *cdkDragPreview>
+            <app-truck [task]="task"></app-truck>
+          </div>
+          <div class="drag-placeholder" *cdkDragPlaceholder></div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<div
+  class="truck"
+  role="button"
+  tabindex="0"
+  [attr.data-task-id]="task.id"
+  [attr.aria-label]="'Task: ' + task.title"
+  (click)="onActivate($event)"
+  (keydown)="onKey($event)"
+>
+  <div class="cargo-label">{{ task.title }}</div>
+</div>

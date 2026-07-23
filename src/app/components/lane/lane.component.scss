@@ -1,0 +1,83 @@
+:host {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Dashed white divider between adjacent lanes, drawn on the right edge of
+   every lane except the last. `:last-of-type` ignores the shoulder <div>s
+   that sit alongside <app-lane> in the parent.
+   Proportions loosely mimic MUTCD highway skip lines (~10 ft paint / 30 ft
+   gap, scaled down): 7 px wide, 60 px dash, 90 px gap. */
+:host(:not(:last-of-type)) .asphalt::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -3.5px;
+  width: 7px;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 1px;
+  background: repeating-linear-gradient(
+    180deg,
+    #f4f4ee 0 60px,
+    transparent 60px 150px
+  );
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.asphalt {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #3a3d42;
+}
+
+.drop-zone {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem 0.5rem 4rem;
+  min-height: 100%;
+  transition: background 0.15s ease;
+
+  /* Only the lane the pointer is currently hovering gets tinted; the
+     source lane and the highway lane dividers are left untouched so
+     the drop target is unambiguous. */
+  &.cdk-drop-list-receiving {
+    background: rgba(255, 204, 0, 0.16);
+  }
+}
+
+.drag-tilt {
+  transition: transform 120ms ease-out;
+  transform-origin: 50% 55%;
+}
+
+.truck-slot {
+  position: relative;
+}
+
+.drag-placeholder {
+  height: 96px;
+  margin: 0.35rem 0;
+  border: 2px dashed rgba(255, 204, 0, 0.7);
+  border-radius: 8px;
+  background: rgba(255, 204, 0, 0.08);
+}
+
+.drag-preview {
+  width: 180px;
+  transform: rotate(-3deg);
+}

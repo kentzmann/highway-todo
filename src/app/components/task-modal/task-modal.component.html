@@ -1,0 +1,80 @@
+<div
+  class="modal-backdrop"
+  role="dialog"
+  aria-modal="true"
+  (click)="onBackdrop($event)"
+>
+  <form class="modal-card" [formGroup]="form" (ngSubmit)="submit()">
+    <header class="modal-header">
+      <h2>{{ isEditing ? 'Modify Task' : 'New Task' }}</h2>
+      <button
+        type="button"
+        class="close-btn"
+        aria-label="Close"
+        (click)="dismiss()"
+      >
+        &times;
+      </button>
+    </header>
+
+    <label class="field">
+      <span class="field-label">Title</span>
+      <input
+        #titleInput
+        type="text"
+        formControlName="title"
+        autocomplete="off"
+        [maxlength]="titleMaxLength"
+        placeholder="What needs doing?"
+      />
+      @if (!isClosing() && titleCtrl.touched && titleCtrl.hasError('required')) {
+        <span class="field-error">Title is required.</span>
+      }
+      @if (!isClosing() && titleCtrl.hasError('maxlength')) {
+        <span class="field-error">
+          Title must be under {{ titleMaxLength }} characters.
+        </span>
+      }
+    </label>
+
+    <label class="field">
+      <span class="field-label">Description</span>
+      <textarea
+        formControlName="description"
+        placeholder="Optional details"
+      ></textarea>
+    </label>
+
+    <label class="field">
+      <span class="field-label">Lane</span>
+      <select formControlName="status">
+        @for (s of statuses; track s) {
+          <option [value]="s">{{ s }}</option>
+        }
+      </select>
+    </label>
+
+    <footer class="modal-actions">
+      @if (isEditing) {
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="requestDelete()"
+        >
+          Delete
+        </button>
+      }
+      <div class="spacer"></div>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="dismiss()"
+      >
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        {{ isEditing ? 'Save' : 'Create' }}
+      </button>
+    </footer>
+  </form>
+</div>

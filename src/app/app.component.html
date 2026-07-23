@@ -1,0 +1,92 @@
+<div class="highway-shell">
+  <!-- Banner kept for later reuse.
+  <app-toll-sensor
+    [statuses]="statuses"
+    [counts]="counts()"
+  ></app-toll-sensor>
+  -->
+
+
+  <div class="gantry" aria-label="Lane signs">
+    <div class="shoulder shoulder-left" aria-hidden="true"></div>
+    @for (status of statuses; track status) {
+      <div class="gantry-cell">
+        <div class="sign-plate">
+          <span class="sign-text">{{ status }}</span>
+          <app-digital-billboard
+            class="sign-billboard"
+            [value]="counts()[status]"
+            [attr.aria-label]="counts()[status] + ' tasks in ' + status"
+          ></app-digital-billboard>
+        </div>
+      </div>
+    }
+    <div class="shoulder shoulder-right" aria-hidden="true"></div>
+  </div>
+
+  <main class="highway">
+    <div class="shoulder shoulder-left"></div>
+    @for (status of statuses; track status; let i = $index) {
+      <app-lane
+        [status]="status"
+        [tasks]="tasksByStatus()[status]"
+        [connectedLaneIds]="connectionsFor(status)"
+        [isCreateLane]="i === 0"
+        (laneClicked)="openCreate($event)"
+        (taskOpened)="openEdit($event)"
+        (taskDropped)="onDropped($event)"
+      ></app-lane>
+    }
+    <div class="shoulder shoulder-right"></div>
+  </main>
+
+  <button
+    class="create-button"
+    type="button"
+    aria-label="Create task (press N)"
+    (click)="openCreate()"
+  >
+    <span class="plus">+</span>
+    Create Task
+    <kbd class="hotkey" aria-hidden="true">N</kbd>
+  </button>
+
+  <div class="credits" aria-label="App credits">
+    Designed by Kent, version:
+    <a
+      class="credits-link"
+      [href]="releaseNotesUrl"
+      target="_blank"
+      rel="noopener"
+      >{{ version }}</a
+    >
+  </div>
+
+  @if (modal().mode !== 'closed') {
+    <app-task-modal
+      [task]="modalTask()"
+      [defaultStatus]="modalDefaultStatus()"
+      (saved)="onSaved($event)"
+      (deleted)="onDeleted($event)"
+      (dismissed)="closeModal()"
+    ></app-task-modal>
+  }
+
+  @if (showScrollHint()) {
+    <div
+      class="scroll-hint"
+      role="dialog"
+      aria-label="Scroll hint"
+      (click)="dismissScrollHint()"
+    >
+      <div class="scroll-hint-card">
+        <div class="scroll-icon" aria-hidden="true">
+          <span class="scroll-arrow scroll-arrow-up">▲</span>
+          <span class="scroll-arrow scroll-arrow-down">▼</span>
+        </div>
+        <p class="scroll-hint-text">Scroll up or down to see more of the highway</p>
+        <p class="scroll-hint-dismiss">click anywhere to dismiss</p>
+      </div>
+    </div>
+  }
+</div>

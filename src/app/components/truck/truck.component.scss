@@ -1,0 +1,83 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0;
+}
+
+/* Vehicle rendered via a single PNG (379x750 — a top-down truck with
+   cab, bed, and wheels already in the art). aspect-ratio locks the box
+   to the image's proportions so the label always lands over the bed. */
+.truck {
+  position: relative;
+  width: 65%;
+  margin: 0 auto;
+  aspect-ratio: 379 / 750;
+  background-image: url('/assets/truck.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: grab;
+  user-select: none;
+  container-type: inline-size;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.45));
+
+  /* Bouncy loop while hovering — the truck idles up and down like it's
+     rumbling in place, signalling it's interactive. Uses a cubic-bezier
+     that overshoots the peak/valley so the motion feels spring-loaded. */
+  &:hover {
+    animation: truck-bounce 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  }
+
+  &:active {
+    cursor: grabbing;
+    animation: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ff6a13;
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+}
+
+@keyframes truck-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Bed sits around 60% down the truck art; anchor the label's center
+   there and constrain horizontal margins so text stays inside the bed.
+   A white plate behind the text keeps it readable independent of
+   whatever cargo/paint texture is on the truck bed image. */
+.cargo-label {
+  position: absolute;
+  top: 60%;
+  left: 15%;
+  right: 15%;
+  transform: translateY(-50%);
+  padding: 1.5cqi 3cqi;
+  border-radius: 1.2cqi;
+  background: #ffffff;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.55);
+  color: #1c1408;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-weight: 700;
+  font-size: 12cqi;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

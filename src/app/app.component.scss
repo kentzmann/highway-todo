@@ -1,0 +1,311 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.highway-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0f1013;
+}
+
+/* Overhead gantry sitting directly above the lanes. Truss beam spans only
+   the lane area (shoulder columns cover the ends with plain grey), and
+   each lane sign plate hangs centered over the beam, aligned with its
+   lane below.
+   `aspect-ratio` matches the truss image (3400x497) so the gantry grows
+   tall enough to show the beam's full height at any viewport width. */
+.gantry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 3400 / 497;
+  background-color: #3a3d42;
+  background-image: url('/assets/truss-beam.png');
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  background-size: calc(100% - 10px) 100%;
+}
+
+.gantry-cell {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+}
+
+/* Plate width fills most of the gantry-cell; aspect-ratio matches the sign
+   image (500x395) so the graphic renders at its natural proportions
+   regardless of viewport width. container-type lets the label scale with
+   the plate. `position: relative` anchors the digital billboard overlay. */
+.sign-plate {
+  position: relative;
+  width: 65%;
+  aspect-ratio: 500 / 395;
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.6rem;
+  background-image: url('/assets/sign.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  border: none;
+  box-shadow: none;
+}
+
+/* Positions the digital billboard component in the bottom-right corner
+   of each sign plate. `aspect-ratio: 1` guarantees a real square
+   regardless of the sign-plate's aspect. The billboard component owns
+   its own visuals (dots, glow, bezel) — this rule only handles
+   placement + size. */
+.sign-billboard {
+  position: absolute;
+  right: 4%;
+  bottom: 5%;
+  width: 25%;
+  aspect-ratio: 1;
+  z-index: 2;
+}
+
+.sign-text {
+  color: #f6f8fa;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-weight: 700;
+  font-size: 11cqi;
+  line-height: 1.05;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.highway {
+  position: relative;
+  display: flex;
+  flex: 1;
+  background-color: #1c1e22;
+  border-top: 3px solid #f5f5f5;
+  border-bottom: 3px solid #f5f5f5;
+}
+
+.shoulder {
+  flex: 0 0 5px;
+  background: #ffffff;
+}
+
+/* Chunky "physical" button — traffic-cone orange cap on a darker
+   skirt. Rectangular corners give it a "control-panel" feel instead of
+   the previous pill shape. On press the cap translates down by the
+   skirt height and the skirt collapses, so it reads as being depressed
+   into its housing. */
+.create-button {
+  --btn-lift: 8px;
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.35rem;
+  border-radius: 6px;
+  border: 2px solid #a94100;
+  background: linear-gradient(180deg, #ff8c3d 0%, #ff6a13 45%, #d95300 100%);
+  color: #1a1a1a;
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transform: translate(-50%, 0);
+  transition:
+    transform 90ms ease-out,
+    box-shadow 90ms ease-out,
+    background 90ms ease-out;
+  box-shadow:
+    0 var(--btn-lift) 0 -2px #7a3400,
+    0 calc(var(--btn-lift) + 2px) 0 -2px #3e1c00,
+    0 calc(var(--btn-lift) + 14px) 22px rgba(0, 0, 0, 0.55),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.22),
+    inset 0 2px 0 rgba(255, 255, 255, 0.35);
+
+  &:hover {
+    background: linear-gradient(180deg, #ffa25c 0%, #ff7c2d 45%, #e35c00 100%);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(255, 138, 20, 0.55);
+    outline-offset: 3px;
+  }
+
+  &:active {
+    transform: translate(-50%, var(--btn-lift));
+    background: linear-gradient(180deg, #d95300 0%, #b34500 100%);
+    box-shadow:
+      0 0 0 -2px #7a3400,
+      0 2px 0 -2px #3e1c00,
+      0 4px 8px rgba(0, 0, 0, 0.45),
+      inset 0 3px 6px rgba(0, 0, 0, 0.35),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .plus {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .hotkey {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4em;
+    padding: 0.1em 0.45em;
+    margin-left: 0.35rem;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    background: rgba(255, 255, 255, 0.75);
+    color: #1a1a1a;
+    font-family: inherit;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Small credits line pinned to the bottom-right corner. Courier New
+   requested for the retro-terminal look. Sits above the scrollbar
+   gutter and on top of the highway. `pointer-events: none` on the
+   wrapper keeps the credits line from ever swallowing truck clicks
+   near the corner; the anchor inside re-enables pointer events for
+   itself so the version link still works. */
+.credits {
+  position: fixed;
+  right: 1rem;
+  bottom: 0.5rem;
+  z-index: 5;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  color: rgba(244, 246, 250, 0.55);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.credits-link {
+  pointer-events: auto;
+  color: #ff8a3d;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 138, 61, 0.5);
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: #ffa25c;
+    text-decoration-color: currentColor;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 138, 61, 0.7);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* First-task-created onboarding overlay: shows a mouse-wheel animation
+   pointing up/down to teach the user the page is now scrollable. Auto-
+   dismisses after 6 s or on click. */
+.scroll-hint {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 8, 12, 0.55);
+  backdrop-filter: blur(2px);
+  animation: hint-fade-in 0.25s ease-out;
+  cursor: pointer;
+}
+
+.scroll-hint-card {
+  padding: 1.6rem 2rem 1.4rem;
+  background: #14171d;
+  border: 2px solid rgba(255, 138, 61, 0.6);
+  border-radius: 14px;
+  text-align: center;
+  color: #f4f6fa;
+  font-family: 'Menlo', 'Consolas', monospace;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+  max-width: 320px;
+}
+
+.scroll-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+/* Two arrows that alternate between neutral grey (default) and orange
+   (lit) on a 1.4 s cycle, 700 ms offset from each other. No movement —
+   just a color/glow swap, so the eye reads them as "up OR down, take
+   your pick" rather than as animated marching. */
+.scroll-arrow {
+  color: #6b6f76;
+  font-size: 1.7rem;
+  line-height: 1;
+  text-shadow: none;
+  transition: color 0.15s ease;
+}
+
+.scroll-arrow-up {
+  animation: arrow-blink 1.4s ease-in-out infinite;
+}
+
+.scroll-arrow-down {
+  animation: arrow-blink 1.4s ease-in-out infinite;
+  animation-delay: 0.7s;
+}
+
+.scroll-hint-text {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.scroll-hint-dismiss {
+  margin: 0.55rem 0 0;
+  font-size: 0.7rem;
+  color: rgba(255, 138, 61, 0.7);
+  letter-spacing: 0.08em;
+}
+
+@keyframes hint-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Blink between the neutral grey rest color and orange with an amber
+   glow. Only color changes — no transform — per design guidance. */
+@keyframes arrow-blink {
+  0%,
+  100% {
+    color: #6b6f76;
+    text-shadow: none;
+  }
+  50% {
+    color: #ff8a3d;
+    text-shadow: 0 0 10px rgba(255, 138, 61, 0.7);
+  }
+}

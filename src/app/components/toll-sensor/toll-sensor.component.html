@@ -1,0 +1,14 @@
+<div class="toll-gantry" role="banner">
+  <div class="gantry-brand">
+    <span class="brand-mark">HWY</span>
+    <span class="brand-label">TASK CORRIDOR</span>
+  </div>
+  <div class="digital-sign" aria-label="Lane status">
+    @for (status of statuses; track status) {
+      <div class="sign-cell" [attr.data-status]="status">
+        <span class="sign-label">{{ status }}</span>
+        <span class="sign-count">{{ counts[status] }}</span>
+      </div>
+    }
+  </div>
+</div>

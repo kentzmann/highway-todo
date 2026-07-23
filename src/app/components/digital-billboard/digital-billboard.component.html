@@ -1,0 +1,18 @@
+<div class="billboard" role="img">
+  <div class="digits">
+    @for (digit of digits; track $index) {
+      <div class="digit">
+        @for (row of rows; track row) {
+          <div class="row">
+            @for (col of cols; track col) {
+              <span
+                class="dot"
+                [class.dot--on]="isLit(digit, row, col)"
+              ></span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

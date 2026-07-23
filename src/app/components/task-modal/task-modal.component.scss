@@ -1,0 +1,170 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: block;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 8, 12, 0.65);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  width: min(480px, 100%);
+  background: #14171d;
+  border: 1px solid #2a2e37;
+  border-radius: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 122, 40, 0.06);
+  color: #f4f6fa;
+  padding: 1.25rem 1.4rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: 'Menlo', 'Consolas', monospace;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    /* #ff8a3d on the #14171d modal bg: contrast ratio ≈ 7.7:1
+       (passes WCAG AA/AAA for normal text). Deep enough to read as
+       traffic-cone orange, light enough to stay legible. */
+    color: #ff8a3d;
+    text-transform: uppercase;
+  }
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #f4f6fa;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0 0.35rem;
+  cursor: pointer;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  .field-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #a4acba;
+    text-transform: uppercase;
+  }
+
+  .field-error {
+    font-size: 0.7rem;
+    color: #ff8a8a;
+    letter-spacing: 0.05em;
+  }
+
+  input,
+  textarea,
+  select {
+    background: #0b0d11;
+    border: 1px solid #2a2e37;
+    border-radius: 6px;
+    padding: 0.55rem 0.7rem;
+    color: #f4f6fa;
+    font-family: inherit;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+      border-color: #ff8a3d;
+      box-shadow: 0 0 0 3px rgba(255, 138, 61, 0.22);
+    }
+  }
+
+  textarea {
+    height: 200px;
+    resize: none;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .spacer {
+    flex: 1;
+  }
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.55rem 0.95rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.05s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  /* Traffic-cone orange primary. Dark #1a1a1a text on #ff6a13 gives a
+     contrast ratio of ~6.2:1 — WCAG AA for normal text and AAA for
+     large text. Border/hover/active shades all keep dark text legible. */
+  &-primary {
+    background: #ff6a13;
+    color: #1a1a1a;
+    border-color: #a94100;
+    font-weight: 700;
+
+    &:hover:not(:disabled) {
+      background: #ff7c2d;
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(255, 138, 20, 0.55);
+      outline-offset: 2px;
+    }
+
+    &:active:not(:disabled) {
+      background: #d95300;
+    }
+  }
+
+  &-secondary {
+    background: transparent;
+    color: #f4f6fa;
+    border-color: #3b4048;
+  }
+
+  &-danger {
+    background: transparent;
+    color: #ff6b6b;
+    border-color: rgba(255, 107, 107, 0.35);
+  }
+}
