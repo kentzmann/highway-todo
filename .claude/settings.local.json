@@ -17,7 +17,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight /Users/kent/workspace/interviews/todo-list-app/static/assets/asphalt.png)",
       "Bash(sips -g pixelWidth -g pixelHeight /Users/kent/workspace/interviews/todo-list-app/static/assets/truss-beam.png)",
       "Bash(git -C /Users/kent/workspace/interviews/todo-list-app remote set-url origin git@github.com:kentzmann/highway-todo.git)",
-      "Bash(git -C /Users/kent/workspace/interviews/todo-list-app remote -v)"
+      "Bash(git -C /Users/kent/workspace/interviews/todo-list-app remote -v)",
+      "Bash(git *)"
     ]
   }
 }

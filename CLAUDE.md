@@ -3,33 +3,8 @@
 An Angular todo application with a highway/aerial-view UX metaphor. Built for
 an interview exercise, TDD from day one, local-storage only.
 
-**Repo:** `git@github.com:kentzmann/highway-todo.git` (currently blank — nothing
-pushed yet). **Version:** 0.1.0 (per `package.json`).
-
-## To pick this up in a new session / new folder name
-
-The GitHub repo is `highway-todo` but the local folder is still
-`todo-list-app`. To rename locally (safe — the git remote already points at
-`kentzmann/highway-todo`):
-
-```bash
-# Stop the dev server first (any `ng serve` process on :4200)
-lsof -ti:4200 | xargs -r kill
-
-# Rename the folder from the parent directory
-cd /Users/kent/workspace/interviews
-mv todo-list-app highway-todo
-cd highway-todo
-
-# Start a new Claude session here — the working directory changed,
-# and the current session was launched inside the old path.
-```
-
-Once inside the renamed folder:
-
-- `npm start` — dev server on http://localhost:4200
-- `npm test -- --watch=false --browsers=ChromeHeadlessNoSandbox` — 62 tests
-- `git push -u origin main` — first push (see "Committing" below)
+**Repo:** `git@github.com:kentzmann/highway-todo.git`. **Version:** 0.1.0 (per
+`package.json`).
 
 ## The metaphor
 
@@ -48,7 +23,7 @@ Once inside the renamed folder:
 - Bottom-center of the viewport: a chunky **traffic-cone orange** "Create Task"
   button that presses into its housing on click.
 - Bottom-right: a small Courier-New credits line with the app version, linked
-  to `release-notes.md` on GitHub.
+  to `CHANGELOG.md` on GitHub.
 
 ## Interactions
 
@@ -221,20 +196,6 @@ npm test           # karma / jasmine, watch mode
 npm run build      # production build
 ```
 
-## Committing / first push
-
-The working tree currently has zero commits — everything scaffolded, all
-source, `release-notes.md`, and `CLAUDE.md` are untracked. To make the first
-push:
-
-```bash
-git add .
-git commit -m "Initial commit: Highway Todo v0.1.0"
-git push -u origin main
-```
-
-Remote is already `git@github.com:kentzmann/highway-todo.git`.
-
 ## Things I would do next (my words not AI)
 
 - Create a SDD folder in /specs (to fully describe the features and fixes in Plan mode)
@@ -266,4 +227,4 @@ Remote is already `git@github.com:kentzmann/highway-todo.git`.
 - **`src/styles.scss`** — global styles for CDK drag preview, drag-active lane
   wash, transparent scrollbar-gutter.
 - **`karma.conf.js`** — headless Chrome launcher.
-- **`release-notes.md`** — v0.1.0 notes (linked from the in-app credits line).
+- **`CHANGELOG.md`** — Keep a Changelog format; linked from the in-app credits line.

@@ -43,7 +43,7 @@ export class AppComponent {
 
   readonly title = 'highway-todo';
   readonly version = packageJson.version;
-  readonly releaseNotesUrl = `https://github.com/kentzmann/${packageJson.name}/blob/main/release-notes.md`;
+  readonly releaseNotesUrl = `https://github.com/kentzmann/${packageJson.name}/blob/main/CHANGELOG.md`;
   readonly statuses = TASK_STATUSES;
   readonly tasksByStatus = this.svc.tasksByStatus;
   readonly counts = this.svc.counts;
