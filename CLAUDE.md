@@ -196,6 +196,41 @@ npm test           # karma / jasmine, watch mode
 npm run build      # production build
 ```
 
+## Release process
+
+`CHANGELOG.md` follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+and the project follows [SemVer](https://semver.org/):
+
+- Bug fix → patch (`0.1.0 → 0.1.1`)
+- New feature, backwards-compatible → minor (`0.1.0 → 0.2.0`)
+- Breaking change → major (`0.1.0 → 1.0.0`)
+
+**While working:** every user-visible change lands as a bullet under
+`## [Unreleased]` in `CHANGELOG.md`, grouped by `Added` / `Changed` /
+`Deprecated` / `Removed` / `Fixed` / `Security`.
+
+**When cutting a release**, in a single "release vX.Y.Z" commit:
+
+1. Bump `version` in `package.json` (this is what the bottom-right credits
+   line renders — the app is the source of truth).
+2. In `CHANGELOG.md`:
+   - Rename `## [Unreleased]` → `## [X.Y.Z] - YYYY-MM-DD` (ISO date, today).
+   - Insert a fresh empty `## [Unreleased]` above it.
+   - Update the compare-link footer:
+     ```
+     [Unreleased]: https://github.com/kentzmann/highway-todo/compare/vX.Y.Z...HEAD
+     [X.Y.Z]: https://github.com/kentzmann/highway-todo/compare/vPREV...vX.Y.Z
+     ```
+3. Commit, then tag and push:
+   ```bash
+   git tag vX.Y.Z
+   git push && git push --tags
+   ```
+
+The compare link only resolves once the tag is pushed. GitHub Releases are
+optional but recommended — cut one from the tag if you want release notes to
+show up in the repo sidebar.
+
 ## Things I would do next (my words not AI)
 
 - Create a SDD folder in /specs (to fully describe the features and fixes in Plan mode)

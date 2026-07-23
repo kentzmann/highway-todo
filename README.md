@@ -30,7 +30,7 @@ npm run build
 
 ## Interactions
 
-- Bottom-left **Create Task** button, or click anywhere in the leftmost lane,
+- **Create Task** button, or click anywhere in the leftmost lane,
   opens a create-task modal.
 - Click a truck to edit or delete it.
 - Drag trucks between lanes to change status. The hovered lane highlights.
